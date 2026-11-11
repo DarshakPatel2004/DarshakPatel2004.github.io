@@ -196,7 +196,7 @@ footer{padding:var(--s-500) 0 var(--s-600);color:var(--muted)}
       <p class="sub title-2">I take samples apart, pull out the servers they call home, and write down what I find so someone else can check it.</p>
       <div class="actions">
         <a class="btn button-md" href="https://drive.google.com/file/d/1PlCWxFqbXPtYU88FxXe4mXGj8-593sdE/view?usp=sharing" target="_blank" rel="noopener">Get my resume</a>
-        <span class="caption-2 muted mono">1,711 raw indicators from 277 samples</span>
+        <span class="caption-2 muted mono">97.3% accuracy on a 300 APK holdout</span>
       </div>
     </div>
   </section>
@@ -220,20 +220,20 @@ footer{padding:var(--s-500) 0 var(--s-600);color:var(--muted)}
     <div class="wrap">
       <p class="kicker caption-4 mono rv">01 · Jun 2026 to now</p>
       <h2 class="sec-title heading-3 rv">DroidForensix</h2>
-      <p class="lede body-3 rv">A static pipeline that pulls command and control indicators out of Android malware samples, enriches them with threat intelligence, and maps where they point.</p>
+      <p class="lede body-3 rv">An 18 step static pipeline that links Android malware to its command and control infrastructure and checks its own results against ground truth. One APK in, one JSON report out, with a FastAPI and React dashboard on top. No emulator needed.</p>
       <div class="stats rv">
-        <div class="stat"><b class="heading-4 mono">1,711</b><span class="caption-2 muted">C2 indicators</span></div>
-        <div class="stat"><b class="heading-4 mono">277</b><span class="caption-2 muted">samples</span></div>
-        <div class="stat"><b class="heading-4 mono">203</b><span class="caption-2 muted">unique IPs</span></div>
-        <div class="stat"><b class="heading-4 mono">12</b><span class="caption-2 muted">countries</span></div>
+        <div class="stat"><b class="heading-4 mono">97.3%</b><span class="caption-2 muted">holdout accuracy, 292 of 300 APKs</span></div>
+        <div class="stat"><b class="heading-4 mono">64.2%</b><span class="caption-2 muted">family exact match, 352 samples</span></div>
+        <div class="stat"><b class="heading-4 mono">18</b><span class="caption-2 muted">pipeline steps</span></div>
+        <div class="stat"><b class="heading-4 mono">2.4%</b><span class="caption-2 muted">raw indicators that were real C2, 9 of 380</span></div>
       </div>
       <ul class="notes body-3 muted rv">
-        <li>Extracted with AndroGuard, enriched with VirusTotal, OTX, Shodan and Censys.</li>
-        <li>Grouped infrastructure by geography into 26 location clusters.</li>
-        <li>Quick and Full PDF reports, plus an interactive Leaflet map.</li>
+        <li>A 15 feature random forest on static features only. The 0.7 threshold was tuned on a separate 100 APK validation split. On a fresh holdout with no hash overlap it caught 146 of 150 malware samples and passed 146 of 150 benign ones (95% CI 94.8 to 98.6).</li>
+        <li>Family attribution in three layers: hand written signatures, a knowledge base matcher mined from corrected ground truth, and an LLM that picks among candidate families. Checked against VirusTotal and MalwareBazaar.</li>
+        <li>Audited C2 extraction by hand: 68% of raw indicators were clearly benign (Firebase, Google OAuth, CDNs).</li>
       </ul>
-      <p class="caveat body-5 rv">These are raw indicators, not confirmed C2. Most extracted indicators need verification before they count as attribution.</p>
-      <p class="caption-2 muted rv" style="margin-top:var(--s-200)">Background: one dot per indicator, the brighter dots are samples. Positions are illustrative, not real locations.</p>
+      <p class="caveat body-5 rv">Family attribution is right about two times in three, and most raw indicators are not C2. Benign filtering and honest reporting are central to the design.</p>
+      <p class="caption-2 muted rv" style="margin-top:var(--s-200)">The background dots are decoration. They are not real indicators or locations.</p>
     </div>
   </section>
 
@@ -246,19 +246,19 @@ footer{padding:var(--s-500) 0 var(--s-600);color:var(--muted)}
         <article class="card rv">
           <p class="caption-4 mono muted">Apr to May 2026</p>
           <h3 class="title-1">VulnForge</h3>
-          <p class="body-6 muted">Syncs NVD, CISA KEV and OTX, matches assets to CVEs, and writes Snort, Suricata and Sigma rules.</p>
+          <p class="body-6 muted">Syncs NVD, CISA KEV and OTX on 2 automated schedules, matches assets to CVEs across 342,000+ NVD records, and writes detection rules in 3 formats.</p>
           <p class="tags caption-4 mono">NVD, Sigma, Suricata</p>
         </article>
         <article class="card rv">
           <p class="caption-4 mono muted">Jan to May 2026</p>
           <h3 class="title-1">PhishScope</h3>
-          <p class="body-6 muted">Phishing URL classifier. Tree models reached 0.97 F1 on 20+ URL features.</p>
+          <p class="body-6 muted">Phishing URL classifier on 20+ URL features. Tree based models reached 97% accuracy and 0.97 F1.</p>
           <p class="tags caption-4 mono">scikit-learn, XGBoost</p>
         </article>
         <article class="card rv">
           <p class="caption-4 mono muted">MIT ADT University</p>
           <h3 class="title-1">Malware analysis and risk ranking</h3>
-          <p class="body-6 muted">Detection across 20+ threat types, grouped into 5 risk categories.</p>
+          <p class="body-6 muted">Classifies 20+ threat types into 5 risk categories with 96% accuracy. Reported 40% faster threat identification across 1M+ files monthly.</p>
           <p class="tags caption-4 mono">TensorFlow, Python</p>
         </article>
       </div>
@@ -289,8 +289,8 @@ footer{padding:var(--s-500) 0 var(--s-600);color:var(--muted)}
             <p class="caption-4 mono muted" style="margin-top:var(--s-50)">Nov 2024 to May 2025</p>
           </div>
           <ul class="body-6">
-            <li>Forensics and data recovery across 5+ operating systems.</li>
-            <li>Examined evidence from 10+ computers and 10+ mobile devices.</li>
+            <li>Forensics and data recovery across 5+ operating systems, for 5+ investigations.</li>
+            <li>Examined evidence from 10+ computers and 10 mobile devices, supporting 10+ ongoing investigations.</li>
             <li>Wrote reports for 5+ investigations for legal and investigative teams.</li>
           </ul>
         </article>
@@ -306,9 +306,9 @@ footer{padding:var(--s-500) 0 var(--s-600);color:var(--muted)}
         <div class="card rv"><h3 class="title-2">Forensics</h3>
           <ul class="body-6 mono"><li>Cellebrite UFED</li><li>Magnet Axiom</li><li>MOBILedit Forensic Express</li><li>Oxygen Forensic Detective</li></ul></div>
         <div class="card rv"><h3 class="title-2">Reverse and network</h3>
-          <ul class="body-6 mono"><li>IDA, Ghidra</li><li>Wireshark, Nmap</li><li>Burp Suite, Wazuh</li><li>AndroGuard</li></ul></div>
+          <ul class="body-6 mono"><li>IDA, Ghidra</li><li>Wireshark, Nmap</li><li>Burp Suite, Wazuh</li><li>JADX, AndroGuard</li></ul></div>
         <div class="card rv"><h3 class="title-2">Build</h3>
-          <ul class="body-6 mono"><li>Python</li><li>TensorFlow</li></ul>
+          <ul class="body-6 mono"><li>Python, TensorFlow</li><li>scikit-learn, XGBoost</li><li>FastAPI, React</li></ul>
           <p class="caption-2 muted" style="margin-top:var(--s-100)">Languages: English, Hindi, Gujarati, German, French</p></div>
       </div>
     </div>
